@@ -26,15 +26,19 @@ int PID::update(float pv)
 {
     int res;
     _errorVal = _setPoint - pv;
-    _kpQuant = _kp * _errorVal;
-    _kiQuant += _ki * _errorVal;
-    _kdQuant = _errorVal - _errorValOLD;
-    res = (int)round(_kpQuant + _kiQuant + _kdQuant);
-    //res = (int)round(_kpQuant);
-    if(res > 255){
-        res =  255;
-    }else if(res < -255){
-        res = -255;
+    if(abs(_errorVal) > 0.05f){
+        _kpQuant = _kp * _errorVal;
+        _kiQuant += _ki * _errorVal;
+        _kdQuant = _kd * (_errorVal - _errorValOLD);
+        res = (int)round(_kpQuant + _kiQuant + _kdQuant);
+        //res = (int)round(_kpQuant);
+        if(res > 255){
+            res =  255;
+        }else if(res < -255){
+            res = -255;
+        }
+    }else{
+        res = 0.0f;
     }
     _errorValOLD = _errorVal;
     return res;
