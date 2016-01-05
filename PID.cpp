@@ -7,7 +7,6 @@
 #include "Arduino.h"
 #include "PID.h"
 #include <math.h>
-#define PI 3.14159265
 
 // - - - - - - - - - - - - - - - - - - -
 // - - - - - - PID BEGIN - - - - - - - -
@@ -30,11 +29,11 @@ int PID::update(float pv)
     if(abs(_errorVal) > 0.05f){
         if(abs(_errorVal) < 4.0f && abs(_errorVal) > 0.2f){
             if(_errorVal < 0){   //if _errorval is negativ
-                _kpQuant = sin(((_errorVal - 3.0f) / 14.0f) * PI) * 50.0f;
+                _kpQuant = sin(((_errorVal - 3.0f) / 14.0f) * PI) * 150.0f;
                 _kiQuant = 0;
                 _kdQuant = _kd * (_errorVal - _errorValOLD);
             }else{  //if _errorval is positiv
-                _kpQuant = sin(((_errorVal + 3.0f) / 14.0f) * PI) * 50.0f;
+                _kpQuant = sin(((_errorVal + 3.0f) / 14.0f) * PI) * 150.0f;
                 _kiQuant = 0;
                 _kdQuant = _kd * (_errorVal - _errorValOLD);
             }
