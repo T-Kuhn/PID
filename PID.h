@@ -15,7 +15,7 @@ class PID
 {
     public:
         void begin(float kp, float ki, float kd);
-        int update(float pv);
+        int update(float pv, bool following);
         void setSetPoint(float sp);
     private:
         float _kp;
