@@ -29,7 +29,7 @@ int PID::update(float pv, bool following)
     Serial.println(_setPoint);
     int res;
     _errorVal = _setPoint - pv;
-    if(abs(_errorVal) > 0.02f || following){
+    if(abs(_errorVal) > 2.0f || following){
         
         if(!following){
             _kpQuant = _kp * _errorVal;
