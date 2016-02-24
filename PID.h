@@ -1,5 +1,5 @@
 /*
-  PID.h - a simple PID Controller library for the Arduino platform 
+  PID_T.h - a simple PID_T Controller library for the Arduino platform 
   Created by Tobias Kuhn. Sapporo, December 30, 2015.
   Released into the public domain.
 */
@@ -9,25 +9,30 @@
 #include "Arduino.h"
 
 // - - - - - - - - - - - - - - - - - - -
-// - - - - - - - PID CLASS - - - - - - -
+// - - - - - - - PID_T CLASS - - - - - - -
 // - - - - - - - - - - - - - - - - - - -
 class PID
 {
     public:
-        void begin(float kp, float ki, float kd);
-        int update(float pv, bool following);
-        void setSetPoint(float sp);
+        void begin(double kp, double ki, double kd, double tol, double holdPosVal, int mode, bool debug);
+        int update(double pv, bool following);
+        void setSetPoint(double sp);
     private:
-        float _kp;
-        float _kpQuant;
-        float _ki;
-        float _kiQuant;
-        float _kd;
-        float _kdQuant;
-        float _errorVal;
-        float _errorValOLD;
-        float _setPoint;
-        float _controlVar;
+        int _mode;
+        // mode = 0 : normal res PID
+        double _kp;
+        double _kpQuant;
+        double _ki;
+        double _kiQuant;
+        double _kd;
+        double _kdQuant;
+        double _tol;
+        double _holdPosVal;
+        double _errorVal;
+        double _setPoint;
+        double _speed;
+        double _controlVar;
+        bool _debug;
 };
 
 #endif
